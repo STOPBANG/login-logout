@@ -7,7 +7,8 @@ module.exports = {
         authModel.getUser(req.body, (userId, isAgent) => {
           // Error during login
           if (!userId) {
-            return res.json({'authToken': null})
+            res.append('authToken', null);
+            return res.redirect('/auth/login');
           } else {
             const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY);
             res.cookie("authToken", token, {
