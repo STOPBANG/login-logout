@@ -36,7 +36,7 @@ module.exports = {
     httpRequest(postOptionsResident, requestBody) // resident 회원 정보 먼저 조회
       .then((res) => {
         const body = res.body;
-        if(body === null) {
+        if(!body.length) {
           return httpRequest(postOptionsAgent, requestBody) // resident 회원 정보가 없으면 agent 회원 정보 조회
         } else {
           return res; // 있다면 다음 콜백으로
@@ -67,8 +67,9 @@ module.exports = {
             return res.redirect('/');
           }
         } else if(body.a_username) {
+          console.log('i am here');
           // 비밀번호 일치 확인
-          const result = await pwCompare(requestBody.password, body.r_password)
+          const result = await pwCompare(requestBody.password, body.a_password)
           if(!result) return res.redirect('/auth/login');
           else {
             const token = jwt.sign({userId: body.a_username}, process.env.JWT_SECRET_KEY);
