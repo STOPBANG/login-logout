@@ -55,7 +55,7 @@ module.exports = {
           const result = await pwCompare(requestBody.password, body.r_password)
           if(!result) return res.redirect('/auth/login');
           else {
-            const token = jwt.sign({userId: body.r_username}, process.env.JWT_SECRET_KEY);
+            const token = jwt.sign({id: body.id, userId: body.r_username}, process.env.JWT_SECRET_KEY);
             res.cookie("authToken", token, {
               maxAge: 86400_000,
               httpOnly: true,
@@ -72,7 +72,7 @@ module.exports = {
           const result = await pwCompare(requestBody.password, body.a_password)
           if(!result) return res.redirect('/auth/login');
           else {
-            const token = jwt.sign({userId: body.a_username}, process.env.JWT_SECRET_KEY);
+            const token = jwt.sign({id: body.id, userId: body.a_username}, process.env.JWT_SECRET_KEY);
             res.cookie("authToken", token, {
               maxAge: 86400_000,
               httpOnly: true,
