@@ -15,7 +15,7 @@ module.exports = {
   login: async (req, res) => {
     /* msa */
     const postOptionsResident = {
-      host: 'stop_bang_auth_DB',
+      host: 'auth-api',
       port: process.env.PORT,
       path: `/db/resident/findById`,
       method: 'POST',
@@ -24,7 +24,7 @@ module.exports = {
       }
     };
     const postOptionsAgent = {
-      host: 'stop_bang_auth_DB',
+      host: 'auth-api',
       port: process.env.PORT,
       path: `/db/agent/findById`,
       method: 'POST',
